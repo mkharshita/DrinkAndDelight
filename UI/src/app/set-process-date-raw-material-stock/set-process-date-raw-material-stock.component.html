@@ -1,0 +1,64 @@
+<h2>Update Process date</h2>
+<div class="container" >
+    <form #form="ngForm" (ngSubmit)="form.valid && setProcessDate(form)">
+       <table>
+           <div class="form-group">
+           <tr>
+               <td>
+                   Order Id
+               </td>
+               <td>
+                   <input type="text" class="form-control" name="id" ngModel #idCtrl=ngModel required>
+               </td>
+                   <td>
+                   <div *ngIf="idCtrl.invalid && (idCtrl.dirty || idCtrl.touched)" class="myerror">
+                       <div *ngIf="idCtrl.invalid == true">
+                           <div *ngIf="idCtrl.errors.required">
+                               OrderId is required.
+                           </div>
+                       </div>
+                   </div>
+               </td>
+           </tr>
+       </div>
+           <div class="form-group">
+           <tr>
+               <td>
+                   Process Date
+               </td>
+               <td>
+                   <input type="date" class="form-control" name="processDate" ngModel #dateCtrl=ngModel required>
+               </td>
+               <td>
+                   <div *ngIf="dateCtrl.invalid && (dateCtrl.dirty || dateCtrl.touched)" class="myError">
+                       <div *ngIf="dateCtrl.invalid==true">
+                           <div *ngIf="dateCtrl.errors.required">
+                            Process Date is Required
+                           </div>
+                       </div>
+                   </div>
+               </td>
+           </tr>
+           </div>
+       </table>
+       <button class="btn btn-lg btn-primary" type="submit">Update Process Date</button>
+   </form>
+   </div>
+   <hr>
+   <div *ngIf="stock!==null">
+       <h2>Updated SuccessFully</h2>
+       <br>
+       <h3>
+           Stock Id          :     {{stock.stockId}}<br>
+           Order Id          :     {{stock.orderId}}<br>
+           processDate       :     {{stock.processDate | date:'yyyy-MM-dd'}}<br>
+        </h3>
+        <hr>
+   </div>
+
+   <div *ngIf="errorMsg!=null">
+    <h3>Error 
+        {{errorMsg}}
+    </h3>
+        <hr>
+</div> 

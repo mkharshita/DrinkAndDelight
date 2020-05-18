@@ -1,0 +1,104 @@
+<h2>Update Stock</h2>
+<div class="container" >
+ <form #form="ngForm" (ngSubmit)="form.valid && updateStock(form)">
+    <table>
+        <div class="form-group">
+        <tr>
+            <td>
+                Order Id
+            </td>
+            <td>
+                <input type="text" class="form-control" name="id" ngModel #idCtrl=ngModel required>
+            </td>
+                <td>
+                <div *ngIf="idCtrl.invalid && (idCtrl.dirty || idCtrl.touched)" class="myerror">
+                    <div *ngIf="idCtrl.invalid == true">
+                        <div *ngIf="idCtrl.errors.required">
+                            OrderId is required.
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr>
+    </div>
+        <div class="form-group">
+        <tr>
+            <td>
+                Manufacturing Date
+            </td>
+            <td>
+                <input type="date" class="form-control" name="manDate" ngModel #manu=ngModel required>
+            </td>
+            <td>
+                <div *ngIf="manu.invalid && (manu.dirty || manu.touched)" class="myError">
+                    <div *ngIf="manu.invalid==true">
+                        <div *ngIf="manu.errors.required">
+                            Manufacturing Date is Required
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr>
+        </div>
+        <div class="form-group">
+        <tr>
+            <td>
+                Expiry Date
+            </td>
+            <td>
+                <input type="date" class="form-control" name="exDate" ngModel #ex=ngModel required>
+            </td>
+            <td>
+                <div *ngIf="ex.invalid && (ex.dirty || ex.touched)" class="myError">
+                    <div *ngIf="ex.invalid==true">
+                        <div *ngIf="ex.errors.required">
+                            Expiry Date is Required
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr>
+        </div>
+        <div class="form-group">
+        <tr>
+            <td>
+                Quality Check
+            </td>
+            <td>
+                <input type="text"  class="form-control" name="chk" ngModel #chkCtrl=ngModel required>
+            </td>
+            <td>
+                <div *ngIf="chkCtrl.invalid && (chkCtrl.dirty || chkCtrl.touched)" class="myError">
+                    <div *ngIf="chkCtrl.invalid==true">
+                        <div *ngIf="chkCtrl.errors.required">
+                            Quality Check is Required
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr>
+        </div>
+    </table>
+    <button class="btn btn-lg btn-primary" type="submit">Update Stock</button>
+</form>
+</div>
+<hr>
+<div *ngIf="stock!==null">
+    <h2>Updated SuccessFully</h2>
+    <br>
+    <h3>
+        Stock Id             :        {{stock.stockId}}<br>
+        Order Id             :        {{stock.orderId}}<br>
+        Manufacturing date   :        {{stock.manufacturingDate | date:'yyyy-MM-dd'}}<br>
+        Process date         :        {{stock.processDate | date:'yyyy-MM-dd'}}<br>
+        Expiry date          :        {{stock.expiryDate | date:'yyyy-MM-dd'}}<br>
+        Quality Check        :        {{stock.qualityCheck}}<br>
+        </h3>
+        <hr>
+</div>
+
+<div *ngIf="errorMsg!=null">
+    <h3>distributor not added </h3>
+        {{errorMsg}}
+        <hr>
+</div> 

@@ -1,0 +1,54 @@
+<h2>Find Supplier</h2>
+<form #form ="ngForm"  (ngSubmit)="form.valid && findSupplier(form)">
+    <table>
+        <tr>
+            <td>
+                Supplier Id
+            </td>
+            <td>
+                <input type="text" name="id" ngModel #idCtrl=ngModel required>
+                <div *ngIf="idCtrl.invalid && (idCtrl.dirty || idCtrl.touched)" class="myerror">
+                    <div *ngIf="idCtrl.invalid == true">
+                        <div *ngIf="idCtrl.errors.required">
+                            supplierId is required.
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr>
+    <button class="btn btn-lg btn-primary" type="submit">Find Supplier</button>
+    </table>
+<hr>
+<div *ngIf="supplier!==null">
+    <h2>Details</h2>
+    <h3>
+    <br>Id             :     {{supplier.supplierId}}
+    <br>Name           :     {{supplier.supplierName}}
+    <br>Address        :     {{supplier.supplierAddress}}
+    <br>Phone Number   :     {{supplier.supplierPhoneNumber}}
+    </h3>
+    <hr>
+</div>
+
+<div *ngIf="errorMsg!=null">
+    <h3>Error </h3>
+        {{errorMsg}}
+        <hr>
+</div> 
+
+<h2>Display all Suppliers</h2>
+<table border="1">
+    <tr>
+      <th> Supplier Id </th>
+      <th> Name </th>
+      <th> Addresss </th> 
+      <th> Phone Number</th>
+    </tr>
+    <tr *ngFor="let supplier of suppliers">
+      <td>{{supplier.supplierId}}</td> 
+      <td>{{supplier.supplierName}}</td> 
+      <td>{{supplier.supplierAddress}}</td>
+      <td>{{supplier.supplierPhoneNumber}}</td>   
+    </tr>
+</table>
+<hr>

@@ -1,0 +1,58 @@
+<h2>Find Order</h2>
+<form #form ="ngForm"  (ngSubmit)="form.valid && findStockById(form)">
+    <table>
+        <tr>
+            <td>
+                OrderId
+            </td>
+            <td>
+                <input type="text" name="id" ngModel #idCtrl=ngModel required >
+                <div *ngIf="idCtrl.invalid && (idCtrl.dirty || idCtrl.touched)" class="myerror">
+                    <div *ngIf="idCtrl.invalid == true">
+                        <div *ngIf="idCtrl.errors.required">
+                            OrderId is required.
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr>
+    <button class="btn btn-lg btn-primary" type="submit">Find Order</button>
+    </table>
+</form>
+<hr>
+<div *ngIf="stock!==null">
+    <h2>details</h2>
+        <h3>
+            Stock Id     : {{stock.stockId}}<br>
+            Order Id     : {{stock.orderId}}<br>
+            Name         : {{stock.name}} <br>
+            deliveryDate : {{stock.deliveryDate| date:'yyyy-MM-dd'}}<br>
+            Process Date : {{stock.processDate| date:'yyyy-MM-dd'}}  <br> 
+            Price        : {{stock.price}}<br>
+    </h3>
+</div>
+<div *ngIf="errorMsg!=null">
+    <h3>Error 
+        {{errorMsg}}</h3>
+        <hr>
+</div> 
+<br>
+<h2>Display all Raw Material Stocks</h2>
+<table border="1">
+    <tr>
+      <th> Stock Id</th>
+      <th> Order Id </th>
+      <th> Name</th>
+      <th> Delivery Date</th>
+      <th> Process Date</th>
+      <th> Total Price</th>
+    </tr>
+    <tr *ngFor="let stock of stocks">
+      <td>{{stock.stockId}}</td>
+      <td>{{stock.orderId}}</td> 
+      <td>{{stock.name}}</td> 
+      <td>{{stock.deliveryDate| date:'yyyy-MM-dd'}}</td>
+      <td>{{stock.processDate| date:'yyyy-MM-dd'}}</td>   
+      <td>{{stock.price}}</td>
+    </tr>
+</table>

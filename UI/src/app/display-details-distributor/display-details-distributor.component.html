@@ -1,0 +1,53 @@
+<h3>Find Distributor</h3>
+<form #form ="ngForm"  (ngSubmit)="form.valid && findDistributor(form)">
+    <table>
+        <tr>
+            <td>
+                Distributor Id
+            </td>
+            <td>
+                <input type="text" name="id" ngModel #idCtrl=ngModel required>
+                <div *ngIf="idCtrl.invalid && (idCtrl.dirty || idCtrl.touched)" class="myerror">
+                    <div *ngIf="idCtrl.invalid == true">
+                        <div *ngIf="idCtrl.errors.required">
+                            DistributorId is required.
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr>
+    <button class="btn btn-lg btn-primary" type="submit">Find Distributor</button>
+    </table>
+<hr>
+<div *ngIf="distributor!==null">
+    <h2>Details</h2>
+    <h3>
+    <br>Id              : {{distributor.distributorId}}
+    <br>Name            : {{distributor.distributorName}}
+    <br>Address         : {{distributor.distributorAddress}}
+    <br>Phone Number    : {{distributor.distributorPhoneNumber}}
+    </h3>
+    <hr>
+</div>
+
+<div *ngIf="errorMsg!=null">
+    <h3>Error </h3>
+        {{errorMsg}}
+        <hr>
+</div> 
+<h2>Display all Distributors</h2>
+<table border="1">
+    <tr>
+      <th> Distributor Id </th>
+      <th> Name </th>
+      <th> Addresss </th> 
+      <th> Phone Number</th>
+    </tr>
+    <tr *ngFor="let distributor of distributors">
+      <td>{{distributor.distributorId}}</td> 
+      <td>{{distributor.distributorName}}</td> 
+      <td>{{distributor.distributorAddress}}</td>
+      <td>{{distributor.distributorPhoneNumber}}</td>   
+    </tr>
+</table>
+<hr>

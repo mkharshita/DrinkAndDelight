@@ -1,0 +1,83 @@
+<h2>Add Supplier</h2>
+<div class="container" >
+    <form #addForm ="ngForm" (ngSubmit)="addForm.valid && addSupplier(addForm)">
+        <div class="form-group">
+            <label>Supplier Name</label>
+            <table>
+                <tr><td><input type="text" class="form-control" name="name" ngModel #nameCtrl=ngModel required
+                    pattern="[a-zA-Z][a-zA-Z ]+" minlength="2"></td>
+                    <td>
+                        <div *ngIf="nameCtrl.invalid && (nameCtrl.dirty || nameCtrl.touched)" class="myerror">
+                            <div *ngIf="nameCtrl.invalid == true">
+                                <div *ngIf="nameCtrl.errors.required">
+                                     Name is required.
+                                </div>
+                                <div *ngIf="nameCtrl.errors.pattern">
+                                     not a valid name.
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="form-group">
+            <label>Supplier Address</label>
+                <table>
+                    <tr>
+                        <td>
+                            <input type="text" class="form-control" name="address" ngModel #addressCtrl=ngModel required minlength="3">
+                        </td>
+                        <td>
+                            <div *ngIf="addressCtrl.invalid && (addressCtrl.dirty || addressCtrl.touched)" class="myerror">
+                                <div *ngIf="addressCtrl.invalid == true">
+                                    <div *ngIf="addressCtrl.errors.required">
+                                        Address is required.
+                                    </div>
+                                    <div *ngIf ="addressCtrl.errors.minlength">
+                                         Min length should be more than 3
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+            </table>
+        </div>
+        <div class="form-group">
+            <label>Supplier Phone</label>
+            <table>
+                <tr><td><input type="text" class="form-control" name="phone" ngModel #phoneCtrl=ngModel
+                    pattern="^[0][1-9]\d{9}$|^[1-9]\d{9}$" required></td>
+                    <td>
+                        <div *ngIf="phoneCtrl.invalid && (phoneCtrl.dirty || phoneCtrl.touched)" class="myerror">
+                            <div *ngIf="phoneCtrl.invalid == true">
+                                <div *ngIf="phoneCtrl.errors.required">
+                                     Phone no. is required.
+                                </div>
+                                <div *ngIf="phoneCtrl.errors.pattern">
+                                     not a valid phone No.
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+         <button class="btn btn-lg btn-primary" type="submit">Add Supplier</button>
+    </form>
+    </div>
+<hr>
+<div *ngIf="supplier!==null">
+    <h2>
+        Supplier Added Successfully
+    </h2>
+    <h3>
+        supplierId is: {{supplier.supplierId}}<br>
+        supplier Name : {{supplier.supplierName}}<br>
+    </h3>
+</div>
+<div *ngIf="errorMsg!=null">
+    <h3>supplier not added </h3>
+        {{errorMsg}}
+        <hr>
+</div> 
