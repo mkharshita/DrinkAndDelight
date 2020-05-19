@@ -1,4 +1,5 @@
 package org.cap.drinkanddelightmgt.entities;
+import java.util.Objects;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
