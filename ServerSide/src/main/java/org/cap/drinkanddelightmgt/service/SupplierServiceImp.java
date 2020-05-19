@@ -19,6 +19,12 @@ public class SupplierServiceImp implements ISupplierService {
 	@Autowired
 	private ISupplierDao suppliersDao;
 
+	/*******************************************************************************************************
+	 - Function Name	:	add
+	 - Input Parameters	:	SupplierEntity
+	 - Return Type		:	SupplierEntity
+	 - Description		:	adding the supplier in the database
+	 ********************************************************************************************************/
 	@Override
 	public SupplierEntity add(SupplierEntity supplierEntity) {
 		if(supplierEntity.getSupplierName().equals(null) && supplierEntity.getSupplierAddress().equals(null)
@@ -30,7 +36,15 @@ public class SupplierServiceImp implements ISupplierService {
 		supplierEntity=suppliersDao.save(supplierEntity);
 		return supplierEntity;
 	}
+	
+	
 
+	/*******************************************************************************************************
+	 - Function Name	:	generatedId
+	 - Input Parameters	:	int
+	 - Return Type		:	String
+	 - Description		:	generating the id for the supplier
+	 ********************************************************************************************************/
 	String generatedId(int digits) {
 		StringBuilder id=new StringBuilder();
 		for(int i=0;i<digits;i++)
@@ -41,7 +55,14 @@ public class SupplierServiceImp implements ISupplierService {
 		}
 		return id.toString();
 	}
-
+	
+	
+	/*******************************************************************************************************
+	 - Function Name	:	findById
+	 - Input Parameters	:	String
+	 - Return Type		:	SupplierEntity
+	 - Description		:	finding the supplier by its id and throw exception if supplier not found
+	 ********************************************************************************************************/
 	@Override
 	public SupplierEntity findById(String id) {
 		if(id.isEmpty()) {
@@ -55,11 +76,20 @@ public class SupplierServiceImp implements ISupplierService {
 	     throw new SupplierNotFoundException("supplier not found for id="+id);
 	}
 
+	
+	/*******************************************************************************************************
+	 - Function Name	:	fetchAllSupplier
+	 - Input Parameters	:	---
+	 - Return Type		:	List<SupplierEntity>
+	 - Description		:	fetching all the suppliers from the database
+	 ********************************************************************************************************/
 	@Override
 	public List<SupplierEntity> fetchAllSupplier() {
 		List<SupplierEntity> suppliers=suppliersDao.findAll();
 		return suppliers;
 	}
 }
+
+
 
 
