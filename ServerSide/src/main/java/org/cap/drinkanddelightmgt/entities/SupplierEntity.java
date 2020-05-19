@@ -1,4 +1,5 @@
 package org.cap.drinkanddelightmgt.entities;
+import java.util.Objects;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -38,6 +39,17 @@ public class SupplierEntity {
 		this.supplierPhoneNumber = supplierPhoneNumber;
 	}
 	
-	
+	@Override
+    public boolean equals(Object object) {
+        if (this == object) return true;
+        if (object == null || getClass() != object.getClass()) return false;
+        SupplierEntity entity = (SupplierEntity)object;
+        return supplierId ==entity.supplierId;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(supplierId);
+    }
 
 }
