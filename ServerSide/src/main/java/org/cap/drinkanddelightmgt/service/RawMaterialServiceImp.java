@@ -1,8 +1,5 @@
 package org.cap.drinkanddelightmgt.service;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -11,7 +8,6 @@ import java.util.Random;
 import javax.transaction.Transactional;
 import org.cap.drinkanddelightmgt.dao.IRawMaterialStockDao;
 import org.cap.drinkanddelightmgt.entities.RawMaterialStockEntity;
-import org.cap.drinkanddelightmgt.exception.DateTimeFormatException;
 import org.cap.drinkanddelightmgt.exception.EmptyDataException;
 import org.cap.drinkanddelightmgt.exception.NegativeValueException;
 import org.cap.drinkanddelightmgt.exception.ProcessDateException;
@@ -31,7 +27,6 @@ public class RawMaterialServiceImp implements IRawMaterialStockService {
 	 - Function Name	:	doesRawMaterialOrderExistInStock
 	 - Input Parameters	:	String
 	 - Return Type		:	boolean
-	 - Throws			:  	No exception
 	 - Description		:	Checks if Raw Material Order ID exists in Stock
 	 ********************************************************************************************************/
 	@Override
@@ -46,9 +41,8 @@ public class RawMaterialServiceImp implements IRawMaterialStockService {
 	
 	/*******************************************************************************************************
 	 - Function Name	:	trackRawMaterialOrder
-	 - Input Parameters	:	String id
+	 - Input Parameters	:	String 
 	 - Return Type		:	RawMaterialStock
-	 - Throws			:  	-
 	 - Description		:	Track a particular order by id 
 	 ********************************************************************************************************/
 	@Override
@@ -67,10 +61,9 @@ public class RawMaterialServiceImp implements IRawMaterialStockService {
 	
 	/*******************************************************************************************************
 	 - Function Name	:	processDateCheck
-	 - Input Parameters	:	RawMaterialStock rawMaterialStock
+	 - Input Parameters	:	RawMaterialStock ,Date
 	 - Return Type		:	boolean
-	 - Throws			:  	-
-	 - Description		:	Checks if the process date entered is valid or not
+	 - Description		:	Checks if the process date entered is after the delivery date or not
 	 ********************************************************************************************************/
 	@Override
 	public Boolean processDateCheck(RawMaterialStockEntity rawMaterialStockEntity,Date processDate) {
@@ -83,14 +76,12 @@ public class RawMaterialServiceImp implements IRawMaterialStockService {
 	
 	/*******************************************************************************************************
 	 - Function Name	:	updateProcessDateInStock
-	 - Input Parameters	:	RawMaterialStock rawMaterialStock
-	 - Return Type		:	String
-	 - Throws			:  	No exception
+	 - Input Parameters	:	RawMaterialStock ,Date
+	 - Return Type		:	RawMaterialStock
 	 - Description		:	Updates Details of Process Date in Database 
 	 ********************************************************************************************************/
-	
 	@Override
-	public RawMaterialStockEntity updateProcessDateInStock(String id, Date processDate) {
+	public RawMaterialStockEntity setProcessDateInStock(String id, Date processDate) {
 		RawMaterialStockEntity stock=trackRawMaterialOrder(id);
 		if(processDateCheck(stock, processDate)) {
 			stock.setProcessDate(processDate);
@@ -105,14 +96,13 @@ public class RawMaterialServiceImp implements IRawMaterialStockService {
 	
 	/*******************************************************************************************************
 	 - Function Name	:	validateManufacturingDate
-	 - Input Parameters	:	RawMaterialStock rawMaterialStock
-	 - Return Type		:	String
-	 - Throws			:  	No exception
-	 - Description		:	checking the Manufacturing Date 
+	 - Input Parameters	:	RawMaterialStock,Date
+	 - Return Type		:	Boolean
+	 - Description		:	checking the Manufacturing Date whether it is before the process date or not
 	 ********************************************************************************************************/
 	@Override
 	public Boolean validateManufacturingDate(RawMaterialStockEntity rmstock,Date manufacturngDate) {
-		if(rmstock.getProcessDate().after(manufacturngDate)){
+		if(manufacturngDate.before(rmstock.getProcessDate())){
 			return true;
 		}
 		return false;
@@ -123,14 +113,13 @@ public class RawMaterialServiceImp implements IRawMaterialStockService {
 
 	/*******************************************************************************************************
 	 - Function Name	:	validateExpiryDate
-	 - Input Parameters	:	RawMaterialStock rawMaterialStock
-	 - Return Type		:	String
-	 - Throws			:  	No exception
-	 - Description		:	checking the Expire Date 
+	 - Input Parameters	:	RawMaterialStock,Date
+	 -Return Type       :   Boolean
+	 - Description		:	checking the Expire Date whether it is after the process date or not
 	 ********************************************************************************************************/
 	@Override
 	public Boolean validateExpiryDate(RawMaterialStockEntity rmstock,Date expirydate) {
-		if(rmstock.getProcessDate().before(expirydate)){
+		if(expirydate.after(rmstock.getProcessDate())){
 			return true;
 		}
 		return false;
@@ -142,7 +131,6 @@ public class RawMaterialServiceImp implements IRawMaterialStockService {
 	 - Function Name	:	updateRawMaterialStock
 	 - Input Parameters	:	RawMaterialStock rawMaterialStock
 	 - Return Type		:	String
-	 - Throws			:  	No exception
 	 - Description		:	Updates Details of Stock in Database and add stock if not present
 	 ********************************************************************************************************/
 	@Override
@@ -165,7 +153,14 @@ public class RawMaterialServiceImp implements IRawMaterialStockService {
 		     
 	}
 	
-
+	
+	
+	/*******************************************************************************************************
+	 - Function Name	:	add
+	 - Input Parameters	:	RawMaterialStock 
+	 - Return Type		:	RawMaterialStock
+	 - Description		:	adding the stock
+	 ********************************************************************************************************/
 	@Override
 	public RawMaterialStockEntity add(RawMaterialStockEntity stock)  {
 		if(stock.getOrderId().equals(null) &&stock.getName().equals(null) && 
@@ -190,7 +185,13 @@ public class RawMaterialServiceImp implements IRawMaterialStockService {
 	}
 
 
-
+	
+	/*******************************************************************************************************
+	 - Function Name	:	generatedId
+	 - Input Parameters	:	int 
+	 - Return Type		:	String
+	 - Description		:	Generating the id for the stock entity
+	 ********************************************************************************************************/
 	String generatedId(int digits) {
 		StringBuilder id=new StringBuilder();
 		for(int i=0;i<digits;i++)
@@ -203,7 +204,14 @@ public class RawMaterialServiceImp implements IRawMaterialStockService {
 	}
 
 
-
+	
+	
+	/*******************************************************************************************************
+	 - Function Name	:	fetchAllRawMaterialStock
+	 - Input Parameters	:	---
+	 - Return Type		:	List<RawMaterialStockEntity>
+	 - Description		:	fetching all the stocks in the database and returning the result
+	 ********************************************************************************************************/
 	@Override
 	public List<RawMaterialStockEntity> fetchAllRawMaterialStock() {
 		List<RawMaterialStockEntity> stocks=stockdao.findAll();
@@ -212,4 +220,3 @@ public class RawMaterialServiceImp implements IRawMaterialStockService {
 
 
 }
-
