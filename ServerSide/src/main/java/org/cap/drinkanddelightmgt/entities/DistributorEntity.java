@@ -37,7 +37,18 @@ public class DistributorEntity {
 	public void setDistributorPhoneNumber(String distributorPhoneNumber) {
 		this.distributorPhoneNumber = distributorPhoneNumber;
 	}
-	
+	@Override
+    public boolean equals(Object object) {
+        if (this == object) return true;
+        if (object == null || getClass() != object.getClass()) return false;
+        DistributorEntity entity = (DistributorEntity)object;
+        return distributorId ==entity.distributorId;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(distributorId);
+    }
 	
 }
 
