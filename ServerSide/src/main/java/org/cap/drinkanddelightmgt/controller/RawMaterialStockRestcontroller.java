@@ -96,7 +96,7 @@ public class RawMaterialStockRestcontroller {
 	}
 	
 	@PutMapping("/UpdateProcessDate/{id}")
-	public ResponseEntity<RawMaterialStockDisplayDto> updateProcessDate(@PathVariable("id")  String id,@RequestBody RawMaterialStockRequestDto updateDto)
+	public ResponseEntity<RawMaterialStockDisplayDto> setProcessDate(@PathVariable("id")  String id,@RequestBody RawMaterialStockRequestDto updateDto)
 	{
 		service.doesRawMaterialOrderIdExistInStock(updateDto.getOrderId());
 		RawMaterialStockEntity stock=service.trackRawMaterialOrder(id);
