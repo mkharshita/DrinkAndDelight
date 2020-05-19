@@ -19,6 +19,14 @@ public class DistributorServiceImp implements IDistributorService {
 
 	@Autowired
 	private IDistributorDao distributorDao;
+	
+	
+	/*******************************************************************************************************
+	 - Function Name	:	add
+	 - Input Parameters	:	DistributorEntity
+	 - Return Type		:	DistributorEntity
+	 - Description		:	adding the distributor in the database
+	 ********************************************************************************************************/
 	@Override
 	public DistributorEntity add(DistributorEntity distributorEntity) {
 		if(distributorEntity.getDistributorName().equals(null) && distributorEntity.getDistributorAddress().equals(null)
@@ -32,6 +40,12 @@ public class DistributorServiceImp implements IDistributorService {
 	}
 
 
+	/*******************************************************************************************************
+	 - Function Name	:	generatedId
+	 - Input Parameters	:	int
+	 - Return Type		:	String
+	 - Description		:	generating the id for the distributor
+	 ********************************************************************************************************/
 	String generatedId(int digits) {
 		StringBuilder id=new StringBuilder();
 		for(int i=0;i<digits;i++)
@@ -43,6 +57,14 @@ public class DistributorServiceImp implements IDistributorService {
 		return id.toString();
 	}
 
+	
+	
+	/*******************************************************************************************************
+	 - Function Name	:	findById
+	 - Input Parameters	:	String
+	 - Return Type		:	DistributorEntity
+	 - Description		:	finding the distributor by its id and throw exception if distributor not found
+	 ********************************************************************************************************/
 	@Override
 	public DistributorEntity findById(String id) {
 		if(id.isEmpty()) {
@@ -57,6 +79,13 @@ public class DistributorServiceImp implements IDistributorService {
 		    
 		}
 
+	
+	/*******************************************************************************************************
+	 - Function Name	:	fetchAllDistributor
+	 - Input Parameters	:	---
+	 - Return Type		:	List<DistributorEntity>
+	 - Description		:	fetching all the distributors from the database
+	 ********************************************************************************************************/
 	@Override
 	public List<DistributorEntity> fetchAllDistributor() {
 		List<DistributorEntity> distributors = distributorDao.findAll();
@@ -65,5 +94,7 @@ public class DistributorServiceImp implements IDistributorService {
 		
 	    
 }
+
+
 
 
