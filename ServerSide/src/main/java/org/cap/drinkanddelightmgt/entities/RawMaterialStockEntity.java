@@ -107,6 +107,17 @@ public class RawMaterialStockEntity {
 	public void setProcessDate(Date processDate) {
 		this.processDate = processDate;
 	}
-	
+	@Override
+    public boolean equals(Object object) {
+        if (this == object) return true;
+        if (object == null || getClass() != object.getClass()) return false;
+        RawMaterialStockEntity entity = (RawMaterialStockEntity)object;
+        return stockId ==entity.stockId;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(orderId);
+    }
 
 }
