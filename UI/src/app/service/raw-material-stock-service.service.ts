@@ -13,8 +13,7 @@ export class RawMaterialStockServiceService {
   }
   baseUrl = "http://localhost:8086/RMStock";
 
-  url="https://github.com/shaik-afreen09/Angular_DrinkandDelight/tree/master/src/app"
-  getAll():Observable<RawMaterialStock[]>{
+   getAll():Observable<RawMaterialStock[]>{
     let url=this.baseUrl;
     let result:Observable<RawMaterialStock[]>=this.client.get<RawMaterialStock[]>(url);
     return result;
