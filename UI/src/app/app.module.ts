@@ -14,6 +14,8 @@ import { SetProcessDateRawMaterialStockComponent } from './set-process-date-raw-
 import { UpdateRawMaterialStockComponent } from './update-raw-material-stock/update-raw-material-stock.component';
 import { AddDistributorComponent } from './add-distributor/add-distributor.component';
 import { DisplayDetailsDistributorComponent } from './display-details-distributor/display-details-distributor.component';
+import { SupplierService } from './service/supplier.service';
+import { DistributorService } from './service/distributor.service';
 
 @NgModule({
   declarations: [
@@ -34,7 +36,7 @@ import { DisplayDetailsDistributorComponent } from './display-details-distributo
     HttpClientModule
 
   ],
-  providers: [RawMaterialStockServiceService],
+  providers: [RawMaterialStockServiceService,SupplierService,DistributorService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
