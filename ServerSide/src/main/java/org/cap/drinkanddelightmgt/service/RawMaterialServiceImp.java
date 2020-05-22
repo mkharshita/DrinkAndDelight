@@ -139,7 +139,10 @@ public class RawMaterialServiceImp implements IRawMaterialStockService {
 				throw new EmptyDataException("Empty Data Exception catched");
 			}
 			if(validateManufacturingDate(rmstock,manufacturingDate) && validateExpiryDate(rmstock,expirydate)) {
-				if(rmstock.getManufacturingDate().before(rmstock.getExpiryDate())) {
+				if(manufacturingDate.before(expirydate)) {
+					rmstock.setExpiryDate(expirydate);
+					rmstock.setManufacturingDate(manufacturingDate);
+					rmstock.setQualityCheck(qa);
 					rmstock=stockdao.save(rmstock);
 					return rmstock;
 				}
